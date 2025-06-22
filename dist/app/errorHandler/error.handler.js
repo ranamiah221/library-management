@@ -1,6 +1,7 @@
-import { Request, Response } from "express";
-
-export const errorHandler = (err: Error, req: Request, res: Response) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.errorHandler = void 0;
+const errorHandler = (err, req, res) => {
     const errorResponse = {
         message: 'Something went wrong',
         success: false,
@@ -12,7 +13,6 @@ export const errorHandler = (err: Error, req: Request, res: Response) => {
     if (err.name === 'CastError') {
         errorResponse.message = 'Invalid ID format';
     }
-
     res.status(400).json(errorResponse);
-
-}
+};
+exports.errorHandler = errorHandler;

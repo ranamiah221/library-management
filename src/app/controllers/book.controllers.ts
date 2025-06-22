@@ -1,9 +1,10 @@
 import express, { Request, Response } from 'express'
 import { Book } from '../models/book.models';
+import { IGetQuery } from '../interface/query.interface';
 
 export const bookRoutes = express.Router();
 
-bookRoutes.post('', async (req: Request, res: Response) => {
+bookRoutes.post('/', async (req: Request, res: Response) => {
     const body = req.body;
     const book = await Book.create(body)
 
@@ -12,14 +13,13 @@ bookRoutes.post('', async (req: Request, res: Response) => {
         "message": "Book created successfully",
         "data": book
     })
-
 })
-bookRoutes.get('', async (req: Request, res: Response) => {
+bookRoutes.get('/', async (req: Request<unknown, unknown, unknown, IGetQuery>, res: Response) => {
     const genre = req.query.filter?.toString().toUpperCase();
     const sortOrder = req.query.sort === 'asc' ? 1 : -1;
     const limit = parseInt(req.query.limit as string) || 10;
 
-    const query: any = {};
+    const query: Record<string, unknown> = {};
     if (genre) {
         query.genre = genre;
     }
@@ -62,7 +62,7 @@ bookRoutes.put('/:bookId', async (req: Request, res: Response) => {
 
 bookRoutes.delete('/:bookId', async (req: Request, res: Response) => {
     const bookId = req.params.bookId;
-    const book = await Book.findByIdAndUpdate(bookId)
+    await Book.findByIdAndUpdate(bookId)
 
     res.status(201).json({
         "success": true,

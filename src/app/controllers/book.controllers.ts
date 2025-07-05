@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import { Book } from '../models/book.models';
 import { IGetQuery } from '../interface/query.interface';
 
+
 export const bookRoutes = express.Router();
 
 bookRoutes.post('/', async (req: Request, res: Response) => {
@@ -59,18 +60,17 @@ bookRoutes.put('/:bookId', async (req: Request, res: Response) => {
     })
 
 })
-
 bookRoutes.delete('/:bookId', async (req: Request, res: Response) => {
     const bookId = req.params.bookId;
-    await Book.findByIdAndUpdate(bookId)
+    await Book.findByIdAndDelete(bookId)
 
     res.status(201).json({
         "success": true,
         "message": "Book deleted successfully",
         "data": null
     })
-
 })
+
 
 
 

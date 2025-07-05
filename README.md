@@ -67,7 +67,7 @@ Handle error with generic error response.
 ## API Endpoints Overview
 
 - GET: ***/api/books*** return list of all books.
-- GET: ***/api/borrow*** return all borro.
+- GET: ***/api/borrow*** return all borrow.
 - GET: ***/api/books/:id*** return a single book by its _id.
 - POST: ***/api/books*** create a new book.
 - POST: ***/api/borrow*** create a new borrow.
